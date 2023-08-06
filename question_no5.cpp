@@ -1,60 +1,71 @@
-#include<iostream>
+#include<bits/stdc++.h>
 using namespace std;
 
-void Merge(int A[], int B[], int C[], int N, int M, int &K);
+void sortArray(int arr[], int n) {  
+  for (int i = 0; i < n - 1; i++) {  
+    // Find the maximum element in the unsorted portion of the array  
+    int maxItemIndex = i;  
+    for (int j = i + 1; j < n; j++) {  
+      if (arr[j] > arr[maxItemIndex]) {  
+        maxItemIndex = j;  
+      }  
+    }  
+    // Swap the maximum element with the current element  
+    int temp = arr[i];  
+    arr[i] = arr[maxItemIndex];  
+    arr[maxItemIndex] = temp;  
+  }  
+}
 
 int main()
 {
-	int A[100], B[100], C[200],i,n,m,k;
+   
+    int n;
+    cin>>n;
+    int a[n];
 
-	cin>>n;
+    for(int i = 0; i<n; i++)
+    {
+        cin>>a[i];
+    }
 
-	for(i=0;i<n;i++)
-	{
-		
-		cin>>A[i];
-	}
-	cin>>m;
 
-	for(i=0;i<m;i++)
-	{
-		
-		cin>>B[i];
-	}
+    int m;
+    cin>>m;
+    int b[m];
 
-	Merge(A,B,C,n,m,k);
+   for(int i = 0; i<m; i++)
+   {
+     cin>>b[i];
+   }
+   
+    a[n] = INT_MIN;
+    b[m] = INT_MIN;
+    
+    int c[n+m];
+    int lp = 0, rp = 0;
+    //merge sort
+    for(int i = 0; i<n+m; i++)
+    {
+        if(a[lp] >= b[rp])
+        {
+            c[i] = a[lp];
+            lp++;
+        }
+        else
+        {
+            c[i] = b[rp];
+            rp++;
+        }
+    }
 
-	//cout<<"\nThe Merged Array in Descending Order"<<endl;
 
-	for(i=0;i<k;i++)
-	{
-		cout<<C[i]<<" ";
-	}
 
-	return 0;
-}
+    sortArray(c, m+ n);
 
-void Merge(int A[], int B[], int C[], int N, int M, int &K)
-{
-	int I=0, J=0;
-	K=0;
-	
-	while (I<N && J<M)
-	{
-		if (A[I]>B[J])
-			C[K++]=A[I++];
-		else if (A[I]<B[J])
-			C[K++]=B[J++];
-		else
-		{
-			C[K++]=A[I++];
-			J++;
-		}
-	}
-
-	for (int T=I;T<N;T++)
-		C[K++]=A[T];
-
-	for (int T=J;T<M;T++)
-		C[K++]=B[T];
+    for(int i = 0; i<n+m; i++)
+    {
+        cout<<c[i]<<" ";
+    }
+    return 0;
 }
