@@ -59,8 +59,6 @@ int main()
         }
     }
 
-
-
     sortArray(c, m+ n);
 
     for(int i = 0; i<n+m; i++)
